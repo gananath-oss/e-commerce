@@ -4,7 +4,10 @@ import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import User from "../Pages/User/User";
 import UserProtected from "./UserProtected";
-import { Children } from "react";
+import Category from "../Pages/Category/Category";
+import CategoryItems from "../Pages/CategoryItems/CategoryItems";
+import ItemPage from "../Pages/ItemPage/ItemPage";
+// import { Children } from "react";
 
 // V6 concept --------
 // const router = BrowserRouter([
@@ -44,8 +47,15 @@ const AppRouter = () => {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
+          <Route path="category">
+            <Route index element={<Category />} />
+            <Route path=":categoryID">
+              <Route index element={<CategoryItems />} />
+              <Route path=":itemId" element={<ItemPage />} />
+            </Route>
+          </Route>
           <Route element={<UserProtected />}>
-            <Route path="user" element={<User />} />
+            <Route path="profile" element={<User />} />
           </Route>
         </Route>
         <Route path="/login" element={<Login />} />
