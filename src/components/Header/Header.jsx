@@ -22,7 +22,7 @@ const Header = () => {
           <input
             type="text"
             placeholder="Search"
-            className=" outline-none p-1 w-[170px] bg-inherit ml-1"
+            className=" hidden sm:inline-block outline-none p-1 w-[170px] bg-inherit ml-1"
           />
           {/* <IconButton> */}
           <img
