@@ -1,4 +1,4 @@
-import { Icon, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const Category = () => {
@@ -98,7 +98,11 @@ const CategoryUnitItems = ({ imgUrl, title, categoryID }) => (
         style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
         className=" w-full p-2 rounded-md border-2 border-secondary-color flex flex-col items-center"
       >
-        <img className=" rounded-full w-25 h-25" src={imgUrl} alt={title} />
+        <img
+          className=" rounded-full md:w-[300px] md:h-[300px] w-[100px] h-[100px]"
+          src={imgUrl}
+          alt={title}
+        />
         <h5 style={{ fontSize: "18px" }}>{title}</h5>
       </div>
     </IconButton>
