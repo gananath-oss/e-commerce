@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   const [selectPage, setSelectPage] = useState("Home");
   return (
-    <footer className="w-full py-3 px-2 bg-primary-color flex items-center justify-between fixed left-0 bottom-0 z-[100]">
+    <footer className="w-full py-3 px-2 bg-primary-color flex items-center justify-between md:justify-end md:gap-7 fixed left-0 bottom-0 z-[100]">
       <FooterIcon
         title="Home"
         alt="home"
