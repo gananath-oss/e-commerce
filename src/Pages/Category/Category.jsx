@@ -1,4 +1,4 @@
-import { IconButton } from "@mui/material";
+import { ListItemButton } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const Category = () => {
@@ -74,7 +74,7 @@ const Category = () => {
       <h1 className=" text-lg mb-4 font-bold pl-3">Main Category</h1>
       <div
         style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
-        className=" w-full p-2 grid grid-cols-3 grid-rows-[auto] gap-5"
+        className=" w-full p-2 grid grid-cols-3 grid-rows-[auto] gap-5 justify-items-center"
       >
         {catogeryArr.map(({ imgUrl, title, categoryID }, index) => (
           <CategoryUnitItems
@@ -93,18 +93,29 @@ export default Category;
 
 const CategoryUnitItems = ({ imgUrl, title, categoryID }) => (
   <Link to={`/category/${categoryID}`}>
-    <IconButton>
+    <ListItemButton
+      sx={{
+        borderRadius: "5px",
+        "&:hover": {
+          backgroundColor: "#62B6B7",
+        },
+      }}
+    >
       <div
         style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
         className=" w-full p-2 rounded-md border-2 border-secondary-color flex flex-col items-center"
       >
         <img
-          className=" rounded-full md:w-[300px] md:h-[300px] w-[100px] h-[100px]"
+          className=" rounded-full xl:w-[300px] xl:h-[300px] sm:w-[200px] sm:h-[200px] w-[100px] h-[100px]"
           src={imgUrl}
           alt={title}
         />
-        <h5 style={{ fontSize: "18px" }}>{title}</h5>
+        <h5 style={{ fontSize: "18px" }}>
+          {String(title).length > 15
+            ? `${String(title).substring(0, 14)}...`
+            : title}
+        </h5>
       </div>
-    </IconButton>
+    </ListItemButton>
   </Link>
 );

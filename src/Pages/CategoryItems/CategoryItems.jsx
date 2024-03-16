@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { categorySelector } from "../../Store/ReduxSlice/categorySlice";
 import { useParams } from "react-router-dom";
-import { IconButton, Rating } from "@mui/material";
+import { ListItemButton, Rating } from "@mui/material";
 
 const catogeryItemsArr = [
   {
@@ -82,7 +82,7 @@ const CategoryItems = () => {
           {categoryUnit ? categoryUnit.title : "Categery Title"}
         </h1>
       }
-      <div className=" w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 grid-rows-[auto] gap-4">
+      <div className=" w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 grid-rows-[auto] gap-4">
         {catogeryItemsArr.map(({ imgUrl, title, price }, index) => (
           <CategoryItemsUnit
             key={index}
@@ -97,13 +97,28 @@ const CategoryItems = () => {
 };
 
 const CategoryItemsUnit = ({ imgUrl, title, price }) => (
-  <IconButton>
+  <ListItemButton
+    sx={{
+      borderRadius: "5px",
+      "&:hover": {
+        backgroundColor: "#62B6B7",
+      },
+    }}
+  >
     <div
       style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
       className=" w-full p-2 rounded-md border-2 border-secondary-color flex flex-col items-center"
     >
-      <img src={imgUrl} alt={title} className=" w-full object-contain" />
-      <h3 className=" text-sm font-bold text-black">{title}</h3>
+      <img
+        src={imgUrl}
+        alt={title}
+        className="  object-contain xl:w-[300px] xl:h-[300px] sm:w-[200px] sm:h-[200px] w-[100px] h-[100px]"
+      />
+      <h3 className=" text-sm font-bold text-black">
+        {String(title).length > 15
+          ? `${String(title).substring(0, 14)}...`
+          : title}
+      </h3>
       <h3 className=" text-sm font-bold text-black">{price}</h3>
       <Rating
         name="hover-feedback"
@@ -113,7 +128,7 @@ const CategoryItemsUnit = ({ imgUrl, title, price }) => (
         size="small"
       />
     </div>
-  </IconButton>
+  </ListItemButton>
 );
 
 export default CategoryItems;
