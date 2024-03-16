@@ -63,7 +63,15 @@ const Products = ({ title, rowsCount, slidesPerView }) => {
     <section className=" w-full mt-7">
       <h1 className=" text-lg mb-4 font-bold pl-3">{title}</h1>
       <Swiper
-        slidesPerView={window.innerWidth < 640 ? 3 : Number(slidesPerView)}
+        slidesPerView={
+          window.innerWidth < 460
+            ? 2
+            : window.innerWidth < 640
+            ? 3
+            : window.innerWidth < 1280
+            ? 4
+            : Number(slidesPerView)
+        }
         grid={{
           rows: Number(rowsCount),
         }}
@@ -92,7 +100,14 @@ const Products = ({ title, rowsCount, slidesPerView }) => {
 export default Products;
 
 const ProductUnits = ({ src, price, productTitle, id }) => (
-  <IconButton sx={{ borderRadius: "5px" }}>
+  <IconButton
+    sx={{
+      borderRadius: "5px",
+      "&:hover": {
+        backgroundColor: "#97DECE",
+      },
+    }}
+  >
     <div
       className="w-full mb-7 p-2"
       style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
@@ -104,7 +119,9 @@ const ProductUnits = ({ src, price, productTitle, id }) => (
           className="w-[195px] h-[195px] object-contain"
         />
       </div>
-      <h3 className="text-sm font-semibold text-stone-800">{productTitle}</h3>
+      <h3 className="text-sm font-semibold text-stone-800">
+        {String(productTitle).substring(0, 24)}
+      </h3>
       <Rating
         name="hover-feedback"
         value={3.5}
