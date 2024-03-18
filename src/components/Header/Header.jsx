@@ -6,7 +6,7 @@ import { useRef } from "react";
 
 let clicked = false;
 
-const Header = () => {
+const Header = ({ paymentModelRef }) => {
   const logoRef = useRef();
   const searchBoxRef = useRef();
   const searchBoxContainerRef = useRef();
@@ -87,7 +87,7 @@ const Header = () => {
         </div>
       </div>
       {/* header right */}
-      <IconButton>
+      <IconButton onClick={() => paymentModelRef.current.handleOpen()}>
         <div className=" relative p-1">
           <img
             src={cart}
