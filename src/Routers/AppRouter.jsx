@@ -7,6 +7,9 @@ import UserProtected from "./UserProtected";
 import Category from "../Pages/Category/Category";
 import CategoryItems from "../Pages/CategoryItems/CategoryItems";
 import ItemPage from "../Pages/ItemPage/ItemPage";
+import AdminProtected from "./AdminProtected";
+import Admin from "../Pages/Admin/Admin";
+import NoUrl from "../Pages/404/NoUrl";
 // import { Children } from "react";
 
 // V6 concept --------
@@ -57,8 +60,12 @@ const AppRouter = () => {
           <Route element={<UserProtected />}>
             <Route path="profile" element={<User />} />
           </Route>
+          <Route element={<AdminProtected />}>
+            <Route path="admin" element={<Admin />} />
+          </Route>
         </Route>
         <Route path="/login" element={<Login />} />
+        <Route path="/404" element={<NoUrl />} />
       </Routes>
     </BrowserRouter>
   );
