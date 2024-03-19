@@ -1,7 +1,7 @@
 import { Button, Modal } from "@mui/material";
 import { forwardRef, useImperativeHandle, useState } from "react";
-import db from "../Firebase/firebase";
-import { addDoc, collection } from "firebase/firestore/lite";
+// import db from "../Firebase/firebase";
+// import { doc, setDoc } from "firebase/firestore/lite";
 
 const PaymensModel = (props, ref) => {
   const [open, setOpen] = useState(false);
@@ -17,18 +17,17 @@ const PaymensModel = (props, ref) => {
   }));
 
   const addData = () => {
-    addDoc(collection(db, "users"), {
-      first: "Alan",
-      middle: "Mathison",
-      last: "Turing",
-      born: 1912,
-    })
-      .then((docRef) => {
-        console.log("Document written with ID: ", docRef);
-      })
-      .catch((error) => {
-        console.error("Error adding document: ", error);
-      });
+    // setDoc(doc(db, "category", "category_11"), {
+    //   title: "Baby Essentials",
+    //   imgUrl:
+    //     "https://m.media-amazon.com/images/I/81sIfScfgbL._AC_UF894,1000_QL80_.jpg",
+    // })
+    //   .then(() => {
+    //     console.log("Document written. ");
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error adding document: ", error);
+    //   });
   };
 
   return (
