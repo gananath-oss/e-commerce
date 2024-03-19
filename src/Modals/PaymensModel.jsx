@@ -1,7 +1,7 @@
 import { Button, Modal } from "@mui/material";
 import { forwardRef, useImperativeHandle, useState } from "react";
-// import db from "../Firebase/firebase";
-// import { doc, setDoc } from "firebase/firestore/lite";
+import db from "../Firebase/firebase";
+import { doc, setDoc } from "firebase/firestore/lite";
 
 const PaymensModel = (props, ref) => {
   const [open, setOpen] = useState(false);
@@ -17,17 +17,19 @@ const PaymensModel = (props, ref) => {
   }));
 
   const addData = () => {
-    // setDoc(doc(db, "category", "category_11"), {
-    //   title: "Baby Essentials",
-    //   imgUrl:
-    //     "https://m.media-amazon.com/images/I/81sIfScfgbL._AC_UF894,1000_QL80_.jpg",
-    // })
-    //   .then(() => {
-    //     console.log("Document written. ");
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error adding document: ", error);
-    //   });
+    setDoc(doc(db, "category/category_1/category_1", "category10_item2"), {
+        imgUrl:
+        "https://assets.adidas.com/images/w_600,f_auto,q_auto/bf1cac6d8e4e4876b6cead7400a185fe_9366/Terrex_AX4_GORE-TEX_Hiking_Shoes_Black_FY9664_01_standard.jpg",
+      title: "Clothing, Shoes & Accessories",
+      price: "Rs 100/-",
+      rating: 5,
+    })
+      .then(() => {
+        console.log("Document written. ");
+      })
+      .catch((error) => {
+        console.error("Error adding document: ", error);
+      });
   };
 
   return (

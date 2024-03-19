@@ -2,6 +2,7 @@ import { ListItemButton } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import getDataFromCollection from "../../Utils/dataFetch/getDataFromCollection";
+import Loading from "../../components/Loading/Loading";
 
 // const catogeryArr = [
 //   {
@@ -74,7 +75,9 @@ const Category = () => {
   useEffect(() => {
     getDataFromCollection("category", setCategoryData);
   }, []);
-
+  if (categoryData.length === 0) {
+    return <Loading />;
+  }
   return (
     <div className=" px-5 py-[100px] w-full h-screen overflow-y-scroll">
       <h1 className=" text-lg mb-4 font-bold pl-3">Main Category</h1>
