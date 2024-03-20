@@ -139,7 +139,7 @@ const CategoryItemsUnit = ({ imgUrl, title, price, rating }) => (
       <h3 className=" text-sm font-bold text-black">{price}</h3>
       <Rating
         name="hover-feedback"
-        value={rating}
+        value={parseInt(rating)}
         precision={0.5}
         readOnly
         size="small"
