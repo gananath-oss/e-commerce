@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { MainContainer } from "../../Layout/MainContainer";
 import { Button } from "@mui/material";
+import userRegister from "../../Utils/auth/register";
 
 const Login = () => {
   const [select, setSelect] = useState("login");
@@ -67,7 +68,27 @@ const LoginComponent = () => {
 const RegisterComponent = () => {
   const userRegisterHandle = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
+    const name = `${e.target[0].value} ${e.target[1].value}`;
+    const email = e.target[2].value;
+    const password = e.target[3].value;
+    const cPassword = e.target[4].value;
+    const phoneNumber = e.target[5].value;
+    const address = e.target[6].value;
+    const profileImage = e.target[7].value;
+
+    console.log({
+      name,
+      email,
+      password,
+      cPassword,
+      phoneNumber,
+      address,
+      profileImage,
+    });
+
+    if (password === cPassword) {
+      userRegister(email, password, name, phoneNumber, address, profileImage);
+    }
   };
   return (
     <div>
@@ -81,6 +102,8 @@ const RegisterComponent = () => {
         <input type="password" placeholder="Password" />
         <input type="password" placeholder="Confirmed Password" />
         <input type="text" placeholder="Phone Number" />
+        <input type="text" placeholder="Address" />
+        <input type="text" placeholder="Profile Image" />
         <Button type="submit">Create</Button>
       </form>
     </div>
