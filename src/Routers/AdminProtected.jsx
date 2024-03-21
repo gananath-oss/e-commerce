@@ -1,18 +1,22 @@
 import { useSelector } from "react-redux";
-import { Navigate, Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { userSelector } from "../Store/ReduxSlice/userSlice";
+import { useEffect } from "react";
 
 const AdminProtected = () => {
-  // const admin = false;
+  const navigete = useNavigate();
+  const userData = useSelector(userSelector);
 
-  const user = useSelector(userSelector);
-  // console.log(user);
-
-  if (user.role) {
-    return user.role === "admin" ? <Outlet /> : <Navigate to="/404" />;
-  } else {
-    return <Navigate to="/404" />;
-  }
+  useEffect(() => {
+    if (userData.name) {
+      if (!(userData.name === "default")) {
+        if (!(userData.role === "admin")) {
+          navigete("/404");
+        }
+      }
+    }
+  }, [userData]);
+  return <Outlet />;
 };
 
 export default AdminProtected;

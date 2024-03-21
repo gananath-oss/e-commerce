@@ -2,6 +2,8 @@ import { useState } from "react";
 import { MainContainer } from "../../Layout/MainContainer";
 import { Button } from "@mui/material";
 import userRegister from "../../Utils/auth/register";
+import userLogin from "../../Utils/auth/login";
+import { amber } from "@mui/material/colors";
 
 const Login = () => {
   const [select, setSelect] = useState("login");
@@ -51,9 +53,26 @@ export default Login;
  */
 
 const LoginComponent = () => {
+  const loginHandle = (e) => {
+    e.preventDefault();
+    const email = e.target["email"].value;
+    const password = e.target["password"].value;
+    console.log(email, password);
+    userLogin(email, password);
+  };
+
   return (
     <div>
       <h1>Login</h1>
+      <form onSubmit={loginHandle}>
+        <input type="email" name="email" placeholder="Enetr your email" />
+        <input
+          type="password"
+          name="password"
+          placeholder="Enetr your passwprd"
+        />
+        <Button type="sibmit">Login</Button>
+      </form>
     </div>
   );
 };
@@ -75,16 +94,6 @@ const RegisterComponent = () => {
     const phoneNumber = e.target[5].value;
     const address = e.target[6].value;
     const profileImage = e.target[7].value;
-
-    console.log({
-      name,
-      email,
-      password,
-      cPassword,
-      phoneNumber,
-      address,
-      profileImage,
-    });
 
     if (password === cPassword) {
       userRegister(email, password, name, phoneNumber, address, profileImage);

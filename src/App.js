@@ -13,13 +13,13 @@ import {
 function App() {
   const dispatch = useDispatch();
   const userData = useSelector(userSelector);
-  console.log(userData);
 
   useEffect(() => {
     const userCheck = onAuthStateChanged(auth, (user) => {
       if (user) {
-        //     // User is signed in, see docs for a list of available properties
-        //     // https://firebase.google.com/docs/reference/js/auth.user
+        console.log(user);
+        //       //     // User is signed in, see docs for a list of available properties
+        //       //     // https://firebase.google.com/docs/reference/js/auth.user
         getDataDocument("users", user.uid, (setData) => {
           dispatch(addUser(setData));
         });
