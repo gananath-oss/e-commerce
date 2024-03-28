@@ -65,7 +65,7 @@ const AppRouter = () => {
           </Route>
         </Route>
         <Route path="/login" element={<Login />} />
-        <Route path="/404" element={<NoUrl />} />
+        <Route path="/*" element={<NoUrl />} />
       </Routes>
     </BrowserRouter>
   );

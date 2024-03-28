@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { MainContainer } from "../../Layout/MainContainer";
 import { Button } from "@mui/material";
 import userRegister from "../../Utils/auth/register";
 import userLogin from "../../Utils/auth/login";
-import { amber } from "@mui/material/colors";
+import { useNavigate } from "react-router-dom";
+import emailValidate from "../../Utils/validate/emailValidate";
+import { join } from "xpress/lib/string";
 
 const Login = () => {
   const [select, setSelect] = useState("login");
   return (
-    <MainContainer>
+    <div className=" w-full h-screen flex flex-col items-center justify-center">
       {select === "login" ? (
         <LoginComponent />
       ) : select === "register" ? (
@@ -39,7 +40,7 @@ const Login = () => {
           </p>
         ) : null}
       </div>
-    </MainContainer>
+    </div>
   );
 };
 
@@ -47,40 +48,45 @@ export default Login;
 
 /**
  *
- *
- *
- *
  */
 
 const LoginComponent = () => {
+  const navigate = useNavigate();
+
   const loginHandle = (e) => {
     e.preventDefault();
     const email = e.target["email"].value;
     const password = e.target["password"].value;
     console.log(email, password);
-    userLogin(email, password);
+    userLogin(email, password, navigate);
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={loginHandle}>
-        <input type="email" name="email" placeholder="Enetr your email" />
-        <input
-          type="password"
+    <div className=" w-[90%] p-5 shadow-lg flex flex-col items-center justify-center">
+      <h1 className=" text-3xl font-bold mb-7">Login</h1>
+      <form
+        onSubmit={loginHandle}
+        className=" w-full flex flex-col md:w-[500px]"
+      >
+        <LoginInputBox
+          inputType="email"
+          name="email"
+          placeholder="Enter your email"
+        />
+        <LoginInputBox
+          inputType="password"
           name="password"
           placeholder="Enetr your passwprd"
         />
-        <Button type="sibmit">Login</Button>
+        <Button variant="contained" size="large" type="sibmit">
+          Login
+        </Button>
       </form>
     </div>
   );
 };
 
 /**
- *
- *
- *
  *
  */
 
@@ -100,21 +106,86 @@ const RegisterComponent = () => {
     }
   };
   return (
-    <div>
-      <h1>User Register</h1>
-      <form onSubmit={userRegisterHandle}>
-        <div>
-          <input type="text" placeholder="First Name" />
-          <input type="text" placeholder="Last Name" />
+    <div className=" w-[90%] p-5 shadow-lg flex flex-col items-center justify-center">
+      <h1 className=" text-3xl font-bold mb-7">User Register</h1>
+      <form
+        onSubmit={userRegisterHandle}
+        className=" w-full flex flex-col md:w-[500px]"
+      >
+        <div className=" flex gap-2">
+          <LoginInputBox
+            inputType="text"
+            name="text"
+            placeholder="First Name"
+          />
+          <LoginInputBox inputType="text" name="text" placeholder="Last Name" />
         </div>
-        <input type="email" placeholder="Email Address" />
-        <input type="password" placeholder="Password" />
-        <input type="password" placeholder="Confirmed Password" />
-        <input type="text" placeholder="Phone Number" />
-        <input type="text" placeholder="Address" />
-        <input type="text" placeholder="Profile Image" />
-        <Button type="submit">Create</Button>
+        <LoginInputBox
+          inputType="email"
+          name="email"
+          placeholder="Email Address"
+        />
+        <LoginInputBox
+          inputType="password"
+          name="password"
+          placeholder="Password"
+        />
+        <LoginInputBox
+          inputType="password"
+          name="confirmed password"
+          placeholder="Confirmed Password"
+        />
+        <LoginInputBox
+          inputType="text"
+          name="text"
+          placeholder="Phone Number"
+        />
+        <LoginInputBox inputType="text" name="text" placeholder="Address" />
+        <LoginInputBox
+          inputType="text"
+          name="text"
+          placeholder="Profile Image"
+        />
+        <Button variant="contained" size="large" type="submit">
+          Create
+        </Button>
       </form>
+    </div>
+  );
+};
+
+/**
+ *
+ */
+
+const LoginInputBox = ({ inputType, name, placeholder }) => {
+  const [error, setError] = useState(false);
+  const [errMsg, setErrMsg] = useState([]);
+  return (
+    <div
+      className={` w-full relative border ${
+        error ? "border-red-600" : "border-primary-color"
+      } rounded-[5px] p-3 mb-5`}
+    >
+      <label
+        className={` absolute top-[-12px] left-2 text-xs bg-white p-1 ${
+          error ? "text-red-500" : "text-primary-color"
+        }`}
+      >
+        {name.toUpperCase()}
+      </label>
+      <input
+        className={` w-full border-none focus:outline-none ${
+          error && "placeholder:text-red-300"
+        }`}
+        onBlur={(e) =>
+          inputType === "email" && emailValidate(e.target.value, setErrMsg)
+        }
+        type={inputType}
+        name={name}
+        placeholder={placeholder}
+      />
+      {error && <p className=" text-red-500 text-xs">{errMsg?.join(',')}</p>}
     </div>
   );
 };

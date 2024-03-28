@@ -1,9 +1,12 @@
+import { useLocation } from "react-router-dom";
 import { MainContainer } from "../../Layout/MainContainer";
 
 const NoUrl = () => {
+  const { pathname } = useLocation();
   return (
     <MainContainer>
-      <h1 className=" text-6xl font-bold">404 - Page Not Found</h1>
+      <h3 className=" text-4xl font-bold">404</h3>
+      <p>The requested URL {pathname} was not found on this server</p>
     </MainContainer>
   );
 };
