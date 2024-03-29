@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, forwardRef, useRef, useState } from "react";
 import { Button } from "@mui/material";
 import userRegister from "../../Utils/auth/register";
 import userLogin from "../../Utils/auth/login";
 import { useNavigate } from "react-router-dom";
 import emailValidate from "../../Utils/validate/emailValidate";
 import { join } from "xpress/lib/string";
+import passwordValidate from "../../Utils/validate/passwordValidate";
 
 const Login = () => {
   const [select, setSelect] = useState("login");
@@ -51,6 +52,13 @@ export default Login;
  */
 
 const LoginComponent = () => {
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
   const navigate = useNavigate();
 
   const loginHandle = (e) => {
@@ -58,7 +66,9 @@ const LoginComponent = () => {
     const email = e.target["email"].value;
     const password = e.target["password"].value;
     console.log(email, password);
-    userLogin(email, password, navigate);
+    if (email.length > 0 && password.length > 0) {
+      userLogin(email, password, navigate);
+    }
   };
 
   return (
@@ -72,6 +82,7 @@ const LoginComponent = () => {
           inputType="email"
           name="email"
           placeholder="Enter your email"
+          ref={inputRef}
         />
         <LoginInputBox
           inputType="password"
@@ -115,10 +126,14 @@ const RegisterComponent = () => {
         <div className=" flex gap-2">
           <LoginInputBox
             inputType="text"
-            name="text"
+            name="firstName"
             placeholder="First Name"
           />
-          <LoginInputBox inputType="text" name="text" placeholder="Last Name" />
+          <LoginInputBox
+            inputType="lastName"
+            name="text"
+            placeholder="Last Name"
+          />
         </div>
         <LoginInputBox
           inputType="email"
@@ -132,18 +147,18 @@ const RegisterComponent = () => {
         />
         <LoginInputBox
           inputType="password"
-          name="confirmed password"
+          name="confirmedPassword"
           placeholder="Confirmed Password"
         />
         <LoginInputBox
           inputType="text"
-          name="text"
+          name="phoneNumber"
           placeholder="Phone Number"
         />
         <LoginInputBox inputType="text" name="text" placeholder="Address" />
         <LoginInputBox
           inputType="text"
-          name="text"
+          name="profileImage"
           placeholder="Profile Image"
         />
         <Button variant="contained" size="large" type="submit">
@@ -158,7 +173,7 @@ const RegisterComponent = () => {
  *
  */
 
-const LoginInputBox = ({ inputType, name, placeholder }) => {
+const LoginInputBox = forwardRef(({ inputType, name, placeholder }, ref) => {
   const [error, setError] = useState(false);
   const [errMsg, setErrMsg] = useState([]);
   return (
@@ -172,20 +187,25 @@ const LoginInputBox = ({ inputType, name, placeholder }) => {
           error ? "text-red-500" : "text-primary-color"
         }`}
       >
-        {name.toUpperCase()}
+        {placeholder.toUpperCase()}
       </label>
       <input
+        ref={ref}
         className={` w-full border-none focus:outline-none ${
           error && "placeholder:text-red-300"
         }`}
         onBlur={(e) =>
-          inputType === "email" && emailValidate(e.target.value, setErrMsg)
+          inputType === "email"
+            ? emailValidate(e.target.value, setError, setErrMsg)
+            : inputType === "password"
+            ? passwordValidate(e.target.value, setError, setErrMsg)
+            : () => {}
         }
         type={inputType}
         name={name}
         placeholder={placeholder}
       />
-      {error && <p className=" text-red-500 text-xs">{errMsg?.join(',')}</p>}
+      {error && <p className=" text-red-500 text-xs">{errMsg?.join(", ")}</p>}
     </div>
   );
-};
+});
