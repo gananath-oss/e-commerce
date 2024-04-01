@@ -1,16 +1,17 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../Firebase/firebase";
 
-const userLogin = (email, password, navigate) => {
+const userLogin = (email, password, navigate, setAuthErrMsg) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
       navigate("/");
     })
     .catch((error) => {
-      //   const errorCode = error.code;
       const errorMessage = error.message;
-      console.log(errorMessage);
+      if (errorMessage) {
+        setAuthErrMsg("Invalid Credential");
+      }
     });
 };
 

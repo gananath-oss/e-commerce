@@ -60,6 +60,7 @@ const LoginComponent = () => {
     }
   }, []);
   const navigate = useNavigate();
+  const [authErrMsg, setAuthErrMsg] = useState("");
 
   const loginHandle = (e) => {
     e.preventDefault();
@@ -67,13 +68,19 @@ const LoginComponent = () => {
     const password = e.target["password"].value;
     console.log(email, password);
     if (email.length > 0 && password.length > 0) {
-      userLogin(email, password, navigate);
+      userLogin(email, password, navigate, setAuthErrMsg);
+      console.log(authErrMsg);
     }
   };
 
   return (
     <div className=" w-[90%] p-5 shadow-lg flex flex-col items-center justify-center">
       <h1 className=" text-3xl font-bold mb-7">Login</h1>
+      {authErrMsg && (
+        <h3 className=" flex w-full md:w-[500px] bg-red-500 py-3 rounded-md mb-3 text-white text-md font-bold justify-center">
+          {authErrMsg}
+        </h3>
+      )}
       <form
         onSubmit={loginHandle}
         className=" w-full flex flex-col md:w-[500px]"
